@@ -1,14 +1,18 @@
 "use client";
 
 import supabase from "@/config/supabase";
-import Head from "next/head";
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { nanoid } from "nanoid";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 export default function Upload() {
+    const { data } = useSession();
+
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploaded, setUploaded] = useState(null);
     const [isCopied, setIsCopied] = useState(false);
+    const [plan, setPlan] = useState("lite");
 
     const inputRef = useRef(null);
 
@@ -44,6 +48,24 @@ export default function Upload() {
             console.error("Failed to copy text:", err);
         }
     };
+
+    useEffect(() => {
+        if (uploaded) {
+            const logUploadedFileData = async () => {
+                await axios.post("/api/files/uploadFile", {
+                    name: data.user.name,
+                    email: data.user.email,
+                    downloadLink: uploaded,
+                    plan
+                }).then(response => {
+                    console.log("Uploaded file logged onto database!", response);
+                }).catch(error => {
+                    console.log("Error while trying to log uploaded file info!", error);
+                });
+            }
+            logUploadedFileData();
+        }
+    }, [uploaded]);
 
     return (
         <div className="w-full h-screen flex justify-center px-10 pt-5">
