@@ -6,13 +6,15 @@ import { nanoid } from "nanoid";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
+import Payment from "../components/Payment/Payment";
+
 export default function Upload() {
     const { data } = useSession();
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploaded, setUploaded] = useState(null);
     const [isCopied, setIsCopied] = useState(false);
-    const [plan, setPlan] = useState("lite");
+    const [plan, setPlan] = useState("");
 
     const inputRef = useRef(null);
 
@@ -43,7 +45,6 @@ export default function Upload() {
         try {
             await navigator.clipboard.writeText(uploaded);
             setIsCopied(true);
-            //   setTimeout(() => setIsCopied(false), 2000); 
         } catch (err) {
             console.error("Failed to copy text:", err);
         }
@@ -71,7 +72,7 @@ export default function Upload() {
         <div className="w-full h-screen flex justify-center px-10 pt-5">
             <div className="container mx-auto max-w-[560px] flex flex-col gap-5">
                 <div className="flex justify-between items-center border-b border-dashed border-gray-900 pb-3">
-                    <h1 className="text-3xl font-semibold font-mono">Upload File</h1>
+                    <h1 className="text-3xl font-semibold">Upload File</h1>
                 </div>
                 <input
                     type="file"
@@ -80,14 +81,36 @@ export default function Upload() {
                         setSelectedFile(e?.target?.files?.[0]);
                     }}
                 />
+
+                {/* PAYMENT NOT WORKING UNTILL KYC! */}
+
+                {/* <select
+                    name="plan"
+                    id="plan"
+                    value={plan}
+                    onChange={(e) => setPlan(e.target.value)}
+                    className="border rounded-xl px-4 py-2 mt-2 text-black"
+                >
+                    <option value="" disabled>choose your plan</option>
+                    <option value="lite">Lite</option>
+                    <option value="pro">Pro</option>
+                    <option value="elite">Elite</option>
+                </select> */}
+
+                {
+                    (plan !== "lite" && plan !== "") && (
+                        <Payment amount={plan === "pro" ? "10" : "25"} />
+                    )
+                }
+
                 <button
-                    className="bg-green-600 hover:bg-opacity-80 text-white rounded-xl px-4 py-3 text-xl duration-200 w-full font-mono"
+                    className="bg-background-green hover:bg-opacity-80 text-white rounded-xl px-4 py-3 text-xl duration-200 w-full"
                     type="button"
                     onClick={handleUpload}
                 >
                     Upload File
                 </button>
-                {/* {uploaded && <img src={uploaded} className="max-w-[400px]" />} */}
+
                 {uploaded && (
                     <div className="flex">
                         <input className="border w-[85%]" placeholder={uploaded} readOnly />

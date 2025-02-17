@@ -16,7 +16,6 @@ export async function POST(request) {
         };
 
         const order = razorpay.orders.create(options);
-        console.log("\n\n\n\n\n-->", (await order).id);
 
         const orderId = (await order).id;
 
