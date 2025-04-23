@@ -2,8 +2,18 @@ import CloseIcon from '@mui/icons-material/Close';
 import Logo from '../Logo';
 
 import { motion } from "framer-motion";
+import { useSession } from 'next-auth/react';
+import NavLink from 'next/link';
+import { signOut } from 'next-auth/react';
 
 export default function Nav({ closeNavCallback }) {
+
+    const { status } = useSession();
+
+    const handleSignout = async () => {
+        await signOut();
+    }
+
     return (
         <nav className="absolute top-0 left-0 bg-lighter-black w-screen h-[100svh] flex flex-col gap-10 px-7 sm:px-10 py-5">
             <div className="flex items-center justify-between">
@@ -22,7 +32,14 @@ export default function Nav({ closeNavCallback }) {
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ ease: "easeInOut", duration: 0.25 }}
             >
-                <p className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">Something Else</p>
+                {
+                    status === "authenticated" &&
+                    <NavLink href="/upload" className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">Upload</NavLink>
+                }
+                {
+                    status === "authenticated" &&
+                    <p onClick={() => handleSignout()} className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">Signout</p>
+                }
                 <p className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">Contact Us</p>
             </motion.div>
         </nav>

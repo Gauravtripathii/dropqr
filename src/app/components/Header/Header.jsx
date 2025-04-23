@@ -4,14 +4,22 @@ import Nav from "./Nav";
 import MenuIcon from '@mui/icons-material/Menu';
 
 import { useState } from "react";
-
+import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
+import NavLink from "next/link";
+import { signOut } from "next-auth/react";
 
 export default function Header() {
+    const { status } = useSession();
+
     const [isNavOpen, setIsNavOpen] = useState(false);
 
     const closeNavCallback = () => {
         setIsNavOpen(false);
+    }
+
+    const handleSignout = async () => {
+        await signOut();
     }
 
     return (
@@ -34,12 +42,20 @@ export default function Header() {
 
 
             <motion.div
-                className="md:text-[25px] hidden md:flex"
+                className="md:text-[25px] hidden lg:flex"
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ ease: "easeInOut", duration: 0.25 }}
             >
                 <p className="font-semibold cursor-pointer hover:text-foreground-green transition-all">Contact Us</p>
+                {
+                    status === "authenticated" &&
+                    <NavLink href="/upload" className="font-semibold cursor-pointer hover:text-foreground-green transition-all ml-5">Upload</NavLink>
+                }
+                {
+                    status === "authenticated" &&
+                    <p onClick={() => handleSignout()} className="font-semibold cursor-pointer hover:text-foreground-green transition-all ml-5">Signout</p>
+                }
             </motion.div>
         </header>
     );

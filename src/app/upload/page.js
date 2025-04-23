@@ -9,6 +9,7 @@ import { useSession } from "next-auth/react";
 import Payment from "../components/Payment/Payment";
 
 import UserDashboard from "../components/UserDashboard/UserDashboard";
+import Header from "../components/Header/Header";
 
 export default function Upload() {
     const { data } = useSession();
@@ -71,8 +72,9 @@ export default function Upload() {
     }, [uploaded]);
 
     return (
-        <div className="w-full h-screen flex flex-col items-center gap-10 px-10 pt-5">
-            <div className="container mx-auto max-w-[560px] flex flex-col gap-5">
+        <div className="w-screen overflow-y-hidden">
+            <Header />
+            <div className="mt-10 px-5 container mx-auto max-w-[560px] flex flex-col gap-5">
                 <div className="flex justify-between items-center border-b border-dashed border-gray-900 pb-3">
                     <h1 className="text-3xl font-semibold">Upload File</h1>
                 </div>

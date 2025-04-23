@@ -3,6 +3,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 import axios from "axios";
+import { redirect } from "next/navigation";
 
 export default function Auth() {
   const { data, status } = useSession();
@@ -29,6 +30,7 @@ export default function Auth() {
           });
       }
       handleAuth(data.user.name, data.user.email);
+      redirect("/upload");
     }
     else if (status === "unauthenticated") {
       const mongoSignout = async () => {
