@@ -14,6 +14,10 @@ const fileSchema = new mongoose.Schema({
     plan: {
         type: String,
         // lite, pro, elite
+    },
+    downloads: {
+        type: Number,
+        default: 0,
     }
 });
 
