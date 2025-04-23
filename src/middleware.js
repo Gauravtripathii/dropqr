@@ -5,7 +5,7 @@ export function middleware(request) {
 
     const isPublicPath = path === '/' || path === '/auth';
 
-    const token = request.cookies.get('token')?.value || "";
+    const token = request.cookies.get('next-auth.session-token')?.value || "";
 
     // if (isPublicPath && token)
     //     return NextResponse.redirect(new URL('/upload', request.nextUrl));

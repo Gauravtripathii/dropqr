@@ -17,7 +17,7 @@ export default function Upload() {
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploaded, setUploaded] = useState(null);
     const [isCopied, setIsCopied] = useState(false);
-    const [plan, setPlan] = useState("");
+    const [plan, setPlan] = useState("lite");
 
     const inputRef = useRef(null);
 

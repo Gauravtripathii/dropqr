@@ -31,8 +31,7 @@ export default function Header() {
                 lg:hidden"
                 onClick={() => setIsNavOpen(true)}
             >
-                <MenuIcon className="text-gray-400 md:hidden" fontSize="medium" />
-                <MenuIcon className="text-gray-400 hidden md:block" fontSize="large" />
+                <MenuIcon className="text-gray-400" fontSize="large" />
             </span>
 
             {
@@ -47,11 +46,11 @@ export default function Header() {
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ ease: "easeInOut", duration: 0.25 }}
             >
-                <p className="font-semibold cursor-pointer hover:text-foreground-green transition-all">Contact Us</p>
                 {
                     status === "authenticated" &&
                     <NavLink href="/upload" className="font-semibold cursor-pointer hover:text-foreground-green transition-all ml-5">Upload</NavLink>
                 }
+                <p className="font-semibold cursor-pointer hover:text-foreground-green transition-all">Contact Us</p>
                 {
                     status === "authenticated" &&
                     <p onClick={() => handleSignout()} className="font-semibold cursor-pointer hover:text-foreground-green transition-all ml-5">Signout</p>
