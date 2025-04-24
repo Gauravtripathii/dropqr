@@ -74,21 +74,23 @@ export default function Upload() {
     return (
         <div className="w-screen overflow-y-hidden">
             <Header />
-            <div className="mt-10 px-5 container mx-auto max-w-[560px] flex flex-col gap-5">
-                <div className="flex justify-between items-center border-b border-dashed border-gray-900 pb-3">
-                    <h1 className="text-3xl font-semibold">Upload File</h1>
-                </div>
-                <input
-                    type="file"
-                    ref={inputRef}
-                    onChange={(e) => {
-                        setSelectedFile(e?.target?.files?.[0]);
-                    }}
-                />
+            {
+                !uploaded &&
+                <div className="mt-10 px-5 container mx-auto max-w-[560px] flex flex-col gap-5">
+                    <div className="flex justify-between items-center border-b border-dashed border-gray-900 pb-3">
+                        <h1 className="text-3xl font-semibold">Upload File</h1>
+                    </div>
+                    <input
+                        type="file"
+                        ref={inputRef}
+                        onChange={(e) => {
+                            setSelectedFile(e?.target?.files?.[0]);
+                        }}
+                    />
 
-                {/* PAYMENT NOT WORKING UNTILL KYC! */}
+                    {/* PAYMENT NOT WORKING UNTILL KYC! */}
 
-                {/* <select
+                    {/* <select
                     name="plan"
                     id="plan"
                     value={plan}
@@ -101,27 +103,30 @@ export default function Upload() {
                     <option value="elite">Elite</option>
                 </select> */}
 
-                {
-                    (plan !== "lite" && plan !== "") && (
-                        <Payment amount={plan === "pro" ? "10" : "25"} />
-                    )
-                }
+                    {
+                        (plan !== "lite" && plan !== "") && (
+                            <Payment amount={plan === "pro" ? "10" : "25"} />
+                        )
+                    }
 
-                <button
-                    className="bg-background-green hover:bg-opacity-80 text-white rounded-xl px-4 py-3 text-xl duration-200 w-full"
-                    type="button"
-                    onClick={handleUpload}
-                >
-                    Upload File
-                </button>
+                    <button
+                        className="bg-background-green hover:bg-opacity-80 text-white rounded-xl px-4 py-3 text-xl duration-200 w-full"
+                        type="button"
+                        onClick={handleUpload}
+                    >
+                        Upload File
+                    </button>
+                </div>
+            }
 
-                {uploaded && (
-                    <div className="flex">
-                        <input className="border w-[85%]" placeholder={uploaded} readOnly />
-                        <button onClick={handleCopy}>Copy</button>
-                    </div>
-                )}
-            </div>
+            {uploaded && (
+                <div className="w-full flex items-center justify-center gap-3 mt-10">
+                    <input className="border w-[50%] px-1 py-2 rounded-md" placeholder={uploaded} readOnly />
+                    <button onClick={handleCopy} className="border px-5 py-2 rounded-md bg-background-green border-background-green hover:bg-foreground-green">
+                        {isCopied ? "Copied!" : "Copy Link"}
+                    </button>
+                </div>
+            )}
 
             {/* dashboard */}
             <UserDashboard />

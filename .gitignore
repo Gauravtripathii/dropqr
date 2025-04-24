@@ -33,6 +33,9 @@ yarn-error.log*
 # env files (can opt-in for committing if needed)
 .env*
 
+# to plan all the stuff
+plan.txt
+
 # vercel
 .vercel
 
