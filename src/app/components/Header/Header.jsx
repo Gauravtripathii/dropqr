@@ -41,7 +41,7 @@ export default function Header() {
 
 
             <motion.div
-                className="md:text-[25px] hidden lg:flex"
+                className="md:text-[25px] hidden lg:flex gap-3"
                 initial={{ x: 20, opacity: 0 }}
                 animate={{ x: 0, opacity: 1 }}
                 transition={{ ease: "easeInOut", duration: 0.25 }}
