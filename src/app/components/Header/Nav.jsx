@@ -22,7 +22,7 @@ export default function Nav({ closeNavCallback }) {
                     className="cursor-pointer border-2 border-lighter-black hover:border-foreground-green hover:bg-lighter-black p-1 rounded-lg"
                     onClick={closeNavCallback}
                 >
-                    <CloseIcon className="text-gray-400 md:hidden" fontSize="medium" />
+                    {/* <CloseIcon className="text-gray-400 md:hidden" fontSize="medium" /> */}
                     <CloseIcon className="text-gray-400 hidden md:block" fontSize="large" />
                 </span>
             </div>

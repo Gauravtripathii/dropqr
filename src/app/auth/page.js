@@ -5,6 +5,8 @@ import React from "react";
 import axios from "axios";
 import { redirect } from "next/navigation";
 
+import Image from "next/image";
+
 export default function Auth() {
   const { data, status } = useSession();
 
@@ -30,7 +32,9 @@ export default function Auth() {
           });
       }
       handleAuth(data.user.name, data.user.email);
-      redirect("/upload");
+      setTimeout(() => {
+        redirect("/upload");
+      }, 2000);
     }
     else if (status === "unauthenticated") {
       const mongoSignout = async () => {
@@ -48,16 +52,18 @@ export default function Auth() {
 
   // console.log(data)
   return (
-    <div className="flex flex-col w-screen h-[100svh] items-center justify-center">
+    <div className="flex flex-col w-screen h-[100svh] items-center justify-center p-5">
 
       {
         status === "authenticated" ?
-          <div className="">
-            <button onClick={() => handleSignout()}>Signout</button>
+          <div className="text-2xl text-center">
+            <Image alt="who are you meme" src="/gold-chain-welcome.gif" width={500} height={500} />
+            <p>Redirecting...</p>
           </div> :
-          <div className="flex flex-col gap-5 text-3xl">
-            <button onClick={() => handleSignIn("google")}>Signin with google</button>
-            <button onClick={() => handleSignIn("github")}>Signin with github</button>
+          <div className="flex flex-col gap-5 text-3xl border rounded-md p-5">
+            <Image alt="who are you meme" src="/wait-a-minute-who-are-you.gif" width={500} height={500} />
+            <button onClick={() => handleSignIn("google")}>Continue with Google</button>
+            <button onClick={() => handleSignIn("github")}>Continue with GitHub</button>
           </div>
       }
 

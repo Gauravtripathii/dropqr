@@ -11,6 +11,8 @@ import Payment from "../components/Payment/Payment";
 import UserDashboard from "../components/UserDashboard/UserDashboard";
 import Header from "../components/Header/Header";
 
+import toast from "react-hot-toast";
+
 export default function Upload() {
     const { data } = useSession();
 
@@ -23,6 +25,13 @@ export default function Upload() {
 
     const handleUpload = async () => {
         if (selectedFile) {
+
+            // checks for lite plan
+            if (plan === "lite" && selectedFile.size / 1024 / 1024 / 1024 > 1) {
+                toast.error("Lite plan allows only 1GB file size!");
+                return;
+            }
+
             const filename = nanoid();
 
             const { data, error } = await supabase.storage
@@ -41,6 +50,7 @@ export default function Upload() {
                 console.log(file);
                 setUploaded(file?.publicUrl);
             }
+            // console.log(selectedFile.size / 1024 / 1024 / 1024, "GB");
         }
     };
 
