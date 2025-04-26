@@ -18,14 +18,20 @@ export default function Upload() {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [uploaded, setUploaded] = useState(null);
+    const [isUploading, setIsUploading] = useState(false);
     const [isCopied, setIsCopied] = useState(false);
     const [plan, setPlan] = useState("lite");
     const [isUploaded, setIsUploaded] = useState(false);
 
     const inputRef = useRef(null);
 
+    const uploadedCallback = () => {
+        setIsUploaded(val => !val);
+    }
+
     const handleUpload = async () => {
         if (selectedFile) {
+            setIsUploading(true);
 
             // checks for lite plan
             if (plan === "lite" && selectedFile.size / 1024 / 1024 / 1024 > 1) {
@@ -77,7 +83,10 @@ export default function Upload() {
                     setIsUploaded(true);
                 }).catch(error => {
                     console.log("Error while trying to log uploaded file info!", error);
-                });
+                })
+                    .finally(() => {
+                        setIsUploading(false);
+                    });
             }
             logUploadedFileData();
         }
@@ -115,18 +124,18 @@ export default function Upload() {
                     <option value="elite">Elite</option>
                 </select> */}
 
-                    {
+                    {/* {
                         (plan !== "lite" && plan !== "") && (
                             <Payment amount={plan === "pro" ? "10" : "25"} />
                         )
-                    }
+                    } */}
 
                     <button
                         className="bg-background-green hover:bg-opacity-80 text-white rounded-xl px-4 py-3 text-xl duration-200 w-full"
                         type="button"
                         onClick={handleUpload}
                     >
-                        Upload File
+                        { isUploading ? "Uploading..." : "Upload File" }
                     </button>
                 </div>
             }
@@ -141,7 +150,7 @@ export default function Upload() {
             )}
 
             {/* dashboard */}
-            <UserDashboard isUploaded={isUploaded} />
+            <UserDashboard isUploaded={isUploaded} uploadedCallback={uploadedCallback} />
         </div>
     );
 }

@@ -1,8 +1,10 @@
 import axios from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSession } from "next-auth/react";
+import toast from "react-hot-toast";
+import Image from "next/image";
 
-export default function UserDashboard({ isUploaded }) {
+export default function UserDashboard({ isUploaded, uploadedCallback }) {
     const {data} = useSession();
 
     const [filesByUser, setFilesByUser] = useState(null);
@@ -16,6 +18,22 @@ export default function UserDashboard({ isUploaded }) {
             console.error("Failed to copy text:", err);
         }
     };
+
+    const deleteFile = async (fileId) => {
+        await axios.post("/api/files/deleteFile", { fileId })
+        .then(response => {
+            if (response.status === 200) {
+                toast.success("Document deleted!");
+                uploadedCallback();
+            }
+        })
+        .catch(error => {
+            if (error.status === 500) {
+                console.log(error);
+                toast.error("An error occurred, please try again!");
+            }
+        })
+    }
 
     useEffect(() => {
         const getFilesByUser = async () => {
@@ -54,6 +72,7 @@ export default function UserDashboard({ isUploaded }) {
                                             <button onClick={() => handleCopy(file.downloadLink)} className="border w-[20%] py-2 rounded-md bg-background-green border-background-green hover:bg-foreground-green text-center">
                                                 {isCopied ? "Copied!" : "Copy Link"}
                                             </button>
+                                            <Image alt="delete btn" src="/delete.png" height={300} width={300} className="w-[30px] cursor-pointer hover:rotate-12 duration-75" onClick={() => deleteFile(file._id)} />
                                         </div>
                                     </div>
                                 )) 
