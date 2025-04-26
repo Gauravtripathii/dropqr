@@ -20,6 +20,7 @@ export default function Upload() {
     const [uploaded, setUploaded] = useState(null);
     const [isCopied, setIsCopied] = useState(false);
     const [plan, setPlan] = useState("lite");
+    const [isUploaded, setIsUploaded] = useState(false);
 
     const inputRef = useRef(null);
 
@@ -67,12 +68,13 @@ export default function Upload() {
         if (uploaded) {
             const logUploadedFileData = async () => {
                 await axios.post("/api/files/uploadFile", {
-                    name: data.user.name,
+                    name: selectedFile.name,
                     email: data.user.email,
                     downloadLink: uploaded,
                     plan
                 }).then(response => {
                     console.log("Uploaded file logged onto database!", response);
+                    setIsUploaded(true);
                 }).catch(error => {
                     console.log("Error while trying to log uploaded file info!", error);
                 });
@@ -139,7 +141,7 @@ export default function Upload() {
             )}
 
             {/* dashboard */}
-            <UserDashboard />
+            <UserDashboard isUploaded={isUploaded} />
         </div>
     );
 }
