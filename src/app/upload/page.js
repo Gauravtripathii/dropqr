@@ -6,7 +6,7 @@ import { nanoid } from "nanoid";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 
-import Payment from "../components/Payment/Payment";
+// import Payment from "../components/Payment/Payment";
 
 import UserDashboard from "../components/UserDashboard/UserDashboard";
 import Header from "../components/Header/Header";
