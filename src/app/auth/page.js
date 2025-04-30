@@ -4,7 +4,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 import axios from "axios";
 // import { redirect } from "next/navigation";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 import Image from "next/image";
 
