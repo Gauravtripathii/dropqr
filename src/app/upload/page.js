@@ -79,10 +79,16 @@ export default function Upload() {
                     downloadLink: uploaded,
                     plan
                 }).then(response => {
-                    console.log("Uploaded file logged onto database!", response);
+                    // console.log("Uploaded file logged onto database!", response);
+                    toast.success("File uploaded successfully!");
                     setIsUploaded(true);
                 }).catch(error => {
-                    console.log("Error while trying to log uploaded file info!", error);
+                    // console.log("Error while trying to log uploaded file info!", error);
+                    if (error.response.status === 500) {
+                        toast.error("An error occurred, please try again!");
+                    } else if (error.response.status === 409) {
+                        toast.error("File already exists!");
+                    }
                 })
                     .finally(() => {
                         setIsUploading(false);

@@ -6,7 +6,7 @@ import axios from "axios";
 // import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-
+import toast from "react-hot-toast";
 import Image from "next/image";
 
 export default function Auth() {
@@ -24,22 +24,27 @@ export default function Auth() {
 
   React.useEffect(() => {
     if (status === "authenticated") {
-      console.log(status, data.user.name, data.user.email);
+      // console.log(status, data.user.name, data.user.email);
 
       const handleAuth = async (name, email) => {
         await axios.post("/api/auth/verifiedSignup", { name, email })
           .then(response => {
-            console.log("verified signup success", response);
+            // console.log("verified signup success", response);
             // router.push("/upload");
             setTimeout(() => {
-              console.log("Redirecting now...");
+              // console.log("Redirecting now...");
               // redirect("/upload");
               // router.refresh();
               router.push("/upload");
             }, 1000);
           })
           .catch((error) => {
-            console.log("verified signup error", error);
+            // console.log("verified signup error", error);
+            if (error.response.status === 500) {
+              toast.error("An error occurred, please try again!");
+            } else if (error.response.status === 409) {
+              toast.error("User already exists, please login!");
+            }
           });
       }
       handleAuth(data.user.name, data.user.email);
@@ -48,10 +53,11 @@ export default function Auth() {
       const mongoSignout = async () => {
         await axios.get("/api/auth/mongosignout")
           .then(response => {
-            console.log(response);
+            // console.log(response);
           })
           .catch(error => {
-            console.log(error);
+            // console.log(error);
+            toast.error("An error occurred, please try again!");
           });
       }
       mongoSignout();

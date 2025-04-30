@@ -32,7 +32,7 @@ export default function UserDashboard({ isUploaded, uploadedCallback }) {
         })
         .catch(error => {
             if (error.status === 500) {
-                console.log(error);
+                // console.log(error);
                 toast.error("An error occurred, please try again!");
             }
         })
@@ -45,13 +45,19 @@ export default function UserDashboard({ isUploaded, uploadedCallback }) {
                 .then(response => {
                     if (response.status === 200) {
                         setFilesByUser(response.data.files);
-                        console.log("Files by user: ", filesByUser);
+                        // console.log("Files by user: ", filesByUser);
                     } else {
-                        console.error("Error fetching files by user: ", response.statusText);
+                        // console.error("Error fetching files by user: ", response.statusText);
+                        toast.error("An error occurred, please try again!");
                     }
                 })
                 .catch(error => {
-                    console.error("Error fetching files by user: ", error);
+                    // console.error("Error fetching files by user: ", error);
+                    if (error.response.status === 500) {
+                        toast.error("An error occurred, please try again!");
+                    } else if (error.response.status === 404) {
+                        toast.error("No files found for this user!");
+                    }
                 });
             }
         }
