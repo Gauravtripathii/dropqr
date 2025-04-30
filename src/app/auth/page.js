@@ -5,6 +5,7 @@ import React from "react";
 import axios from "axios";
 // import { redirect } from "next/navigation";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import Image from "next/image";
 
@@ -33,7 +34,7 @@ export default function Auth() {
             setTimeout(() => {
               console.log("Redirecting now...");
               // redirect("/upload");
-              router.refresh();
+              // router.refresh();
               router.push("/upload");
             }, 1000);
           })
@@ -65,7 +66,10 @@ export default function Auth() {
         status === "authenticated" ?
           <div className="text-2xl text-center">
             <Image alt="who are you meme" src="/gold-chain-welcome.gif" width={500} height={500} />
-            <p>Redirecting...</p>
+            <p className="flex flex-col">
+              <span>Redirecting...</span>
+              <span>(If not working, <Link href="/upload" className="underline">click here</Link>)</span>
+            </p>
           </div> :
           <div className="flex flex-col gap-5 text-3xl border rounded-md p-5">
             <Image alt="who are you meme" src="/wait-a-minute-who-are-you.gif" width={500} height={500} />
