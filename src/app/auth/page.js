@@ -29,10 +29,11 @@ export default function Auth() {
         await axios.post("/api/auth/verifiedSignup", { name, email })
           .then(response => {
             console.log("verified signup success", response);
-            router.push("/upload");
+            // router.push("/upload");
             setTimeout(() => {
               console.log("Redirecting now...");
               // redirect("/upload");
+              router.refresh();
               router.push("/upload");
             }, 1000);
           })

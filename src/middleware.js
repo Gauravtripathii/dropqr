@@ -3,6 +3,13 @@ import { NextResponse } from "next/server";
 export function middleware(request) {
     const path = request.nextUrl.pathname;
 
+    // if (path === '/auth' && request.cookies.get('next-auth.session-token')?.value) {
+    //     setTimeout(() => {
+    //         console.log("Redirecting now...");
+    //     }, 1000);
+    //     return NextResponse.redirect(new URL('/upload', request.nextUrl));
+    // }
+
     const isPublicPath = path === '/' || path === '/auth';
 
     const token = request.cookies.get('next-auth.session-token')?.value || "";
