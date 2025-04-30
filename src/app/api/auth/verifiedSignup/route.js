@@ -10,6 +10,14 @@ export async function POST(request) {
 
         // if user already exists, just login
         const user = await User.findOne({ email });
+        if (user) {
+            return NextResponse.json({
+                name: user.name,
+                email: user.email,
+                success: true,
+                message: "account already exists!"
+            });
+        }
 
         // save user
         const newUser = new User({ name, email });
