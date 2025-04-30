@@ -26,17 +26,16 @@ export default function Auth() {
         await axios.post("/api/auth/verifiedSignup", { name, email })
           .then(response => {
             console.log("verified signup success", response);
+            setTimeout(() => {
+              console.log("Redirecting now...");
+              redirect("/upload");
+            }, 1000);
           })
           .catch((error) => {
             console.log("verified signup error", error);
           });
       }
       handleAuth(data.user.name, data.user.email);
-      console.log("timeout call next ");
-      setTimeout(() => {
-        console.log("Redirecting now...");
-        redirect("/upload");
-      }, 1000);
     }
     else if (status === "unauthenticated") {
       const mongoSignout = async () => {
