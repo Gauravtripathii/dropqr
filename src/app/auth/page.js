@@ -3,11 +3,14 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 import axios from "axios";
-import { redirect } from "next/navigation";
+// import { redirect } from "next/navigation";
+import { useRouter } from "next/router";
 
 import Image from "next/image";
 
 export default function Auth() {
+  const router = useRouter();
+
   const { data, status } = useSession();
 
   const handleSignIn = async (platform) => {
@@ -28,7 +31,8 @@ export default function Auth() {
             console.log("verified signup success", response);
             setTimeout(() => {
               console.log("Redirecting now...");
-              redirect("/upload");
+              // redirect("/upload");
+              router.push("/upload");
             }, 1000);
           })
           .catch((error) => {
