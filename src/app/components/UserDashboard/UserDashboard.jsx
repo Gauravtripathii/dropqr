@@ -77,14 +77,14 @@ export default function UserDashboard({ isUploaded, uploadedCallback }) {
                                             </button>
                                             <Image alt="delete btn" src="/delete.png" height={300} width={300} className="w-[30px] cursor-pointer hover:rotate-12 duration-75" onClick={() => deleteFile(file._id)} />
                                         </div>
-                                        {/* <button className="bg-background-green hover:bg-opacity-80 text-white rounded-xl px-4 py-3 text-xl duration-200 mt-3" type="button" onClick={() => setQrFile(file.downloadLink)}>
+                                        <button className="bg-background-green hover:bg-opacity-80 text-white rounded-xl px-4 py-3 text-xl duration-200 mt-3" type="button" onClick={() => setQrFile(file.downloadLink)}>
                                             view QR code
-                                        </button> */}
+                                        </button>
                                     </div>
                                 )) 
                             }
 
-                            {/* {
+                            {
                                 qrFile && (
                                     <div className="w-full flex flex-col items-center justify-center gap-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md rounded-lg p-4 z-50">
                                         <QRCodeGenerator url={qrFile} />
@@ -93,7 +93,7 @@ export default function UserDashboard({ isUploaded, uploadedCallback }) {
                                         </button>
                                     </div>
                                 )
-                            } */}
+                            }
                         </div>
                     ):
                     <div className="">Loading...</div>

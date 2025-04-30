@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import File from "@/models/fileModel";
+import { connect } from "@/dbConfig";
+
+connect();
 
 export async function POST(request) {
     try {
