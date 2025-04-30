@@ -12,7 +12,7 @@ export function middleware(request) {
 
     const isPublicPath = path === '/' || path === '/auth';
 
-    const token = request.cookies.get('next-auth.session-token')?.value || "";
+    const token = request.cookies.get('next-auth.session-token')?.value || request.cookies.get("__Secure-next-auth.session-token")?.value;
 
     // if (isPublicPath && token)
     //     return NextResponse.redirect(new URL('/upload', request.nextUrl));
