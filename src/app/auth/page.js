@@ -32,9 +32,11 @@ export default function Auth() {
           });
       }
       handleAuth(data.user.name, data.user.email);
+      console.log("timeout call next ");
       setTimeout(() => {
+        console.log("Redirecting now...");
         redirect("/upload");
-      }, 2000);
+      }, 1000);
     }
     else if (status === "unauthenticated") {
       const mongoSignout = async () => {
