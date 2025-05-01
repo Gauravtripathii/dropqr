@@ -3,6 +3,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import React from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Auth() {
   const { data, status } = useSession();
@@ -17,10 +18,12 @@ export default function Auth() {
         const mongoSignout = async () => {
             await axios.get("/api/auth/mongosignout")
             .then(response => {
-                console.log(response);
+                // console.log(response);
+                toast.success("Logged out successfully!");
             })
             .catch(error => {
-                console.log(error);
+                // console.log(error);
+                toast.error("An error occurred, please try again!");
             });
         }
         mongoSignout();
@@ -29,16 +32,23 @@ export default function Auth() {
 
   React.useEffect(() => {
     if (status === "authenticated") {
-      console.log("Successfully logged in!");
-      console.log(status, data.user.name, data.user.email);
+      // console.log("Successfully logged in!");
+      // console.log(status, data.user.name, data.user.email);
+      toast.success("Logged in successfully!");
 
       const handleAuth = async (name, email) => {
         await axios.post("/api/auth/verifiedSignup", { name, email })
         .then(response => {
-            console.log(response);
+            // console.log(response);
+            toast.success("User verified successfully!");
         })
         .catch((error) => {
-            console.log(error);
+            // console.log(error);
+            if (error.response.status === 500) {
+                toast.error("An error occurred, please try again!");
+            } else if (error.response.status === 409) {
+                toast.error("User already exists, please login!");
+            }
         });
       }
       handleAuth(data.user.name, data.user.email);
