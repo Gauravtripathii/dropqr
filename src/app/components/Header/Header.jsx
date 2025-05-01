@@ -50,7 +50,9 @@ export default function Header() {
                     status === "authenticated" &&
                     <NavLink href="/upload" className="font-semibold cursor-pointer hover:text-foreground-green transition-all ml-5">Upload</NavLink>
                 }
-                <p className="font-semibold cursor-pointer hover:text-foreground-green transition-all">Contact Us</p>
+                <p className="font-semibold cursor-pointer hover:text-foreground-green transition-all">
+                    <NavLink href="/contact-us">Contact Us</NavLink>
+                </p>
                 {
                     status === "authenticated" &&
                     <p onClick={() => handleSignout()} className="font-semibold cursor-pointer hover:text-foreground-green transition-all ml-5">Signout</p>

@@ -36,7 +36,9 @@ export default function Nav({ closeNavCallback }) {
                     status === "authenticated" &&
                     <NavLink href="/upload" className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">Upload</NavLink>
                 }
-                <p className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">Contact Us</p>
+                <p className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">
+                    <NavLink href="/contact-us">Contact Us</NavLink>
+                </p>
                 {
                     status === "authenticated" &&
                     <p onClick={() => handleSignout()} className="border-b border-gray-400 hover:bg-background py-3 px-2 font-semibold cursor-pointer">Signout</p>
