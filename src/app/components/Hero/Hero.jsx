@@ -12,7 +12,8 @@ export default function Hero() {
                 <span className="text-foreground-green">Share with anyone</span>
             </h1>
             <p className="text-[18px] md:text-[20px] md:w-1/2 text-justify md:text-center">
-                Effortless file sharing made simple. Upload your files, get an instant link and QR code, and share them anywhere. Need an API? Seamlessly integrate file uploads into your app with ease.
+                Effortless file sharing made simple. Upload your files, get an instant link and QR code, and share them anywhere.
+                {/* Need an API? Seamlessly integrate file uploads into your app with ease. */}
             </p>
             <div className="flex items-center justify-center gap-5 mt-2 md:w-1/2">
                 <button
