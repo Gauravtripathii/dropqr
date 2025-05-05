@@ -23,6 +23,8 @@ export default function Upload() {
     const [plan, setPlan] = useState("lite");
     const [isUploaded, setIsUploaded] = useState(false);
 
+    const [isWarningOpen, setIsWarningOpen] = useState(true);
+
     const inputRef = useRef(null);
 
     const uploadedCallback = () => {
@@ -100,6 +102,19 @@ export default function Upload() {
 
     return (
         <div className="w-screen overflow-y-hidden">
+
+            {
+                isWarningOpen && (
+                    <div className="">
+                        <div className="bg-red-500 text-white text-center py-2 px-4 rounded-lg fixed top-0 left-0 right-0 z-50">
+                            <p className="text-sm">This is a demo version. Please do not upload any sensitive files. ONLY lite links works for now.</p>
+                            <button onClick={() => setIsWarningOpen(false)} className="absolute top-2 right-2 text-white font-bold">X</button>
+                        </div>
+                    </div>
+                )
+            }
+
+
             <Header />
             {
                 !uploaded &&
