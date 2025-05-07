@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import Newsletter from "@/models/newsletterModel";
-import { connect } from "mongoose";
+import { connect } from "@/dbConfig";
 
 connect();
 

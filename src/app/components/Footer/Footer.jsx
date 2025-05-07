@@ -1,6 +1,7 @@
 import Logo from "../Logo";
 import { useState } from "react";
 import axios from "axios";
+import toast from "react-hot-toast";
 
 export default function Footer() {
     const [email, setEmail] = useState("");
@@ -10,14 +11,14 @@ export default function Footer() {
         try {
             const response = await axios.post("/api/addNewsletter", { email });
             if (response.status === 200) {
-                alert("Email added successfully");
+                toast.success("Email added successfully");
                 setEmail("");
             } else {
                 alert("Error adding email");
             }
         } catch (error) {
             console.error("Error adding email:", error);
-            alert("Error adding email");
+            toast.error("Error adding email");
         }
     }
 
