@@ -23,7 +23,7 @@ export default function Footer() {
     }
 
     return (
-        <div className="px-6 py-5 mt-12 bg-lighter-black flex flex-col gap-5">
+        <div className="px-6 md:px-20 py-5 md:py-10 mt-12 bg-lighter-black flex flex-col gap-5 md:gap-10">
             <div className="flex flex-col gap-2 border-b-2 pb-5">
                 <p>
                     Enter your email to recieve relevent updates and news about the app and more products from us.

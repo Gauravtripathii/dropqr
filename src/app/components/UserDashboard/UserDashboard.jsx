@@ -92,7 +92,7 @@ export default function UserDashboard({ isUploaded, uploadedCallback }) {
 
                             {
                                 qrFile && (
-                                    <div className="w-full flex flex-col items-center justify-center gap-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md rounded-lg p-4 z-50">
+                                    <div className="w-full md:w-fit flex flex-col items-center justify-center gap-3 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white shadow-md rounded-lg p-4 z-50">
                                         <QRCodeGenerator url={qrFile} />
                                         <button onClick={() => setQrFile(null)} className="border px-5 py-2 rounded-md bg-background-green border-background-green hover:bg-foreground-green">
                                             Close QR Code
